@@ -5,13 +5,292 @@ The purpose of this project is to provide a sample implementation of an e-commer
 Programming language is Java with heavy use of Spring framework.
 
 ```sh
-# build
-./mvnw clean install
+src
+├── main
+│   ├── java
+│   │   └── com
+│   │       └── ttulka
+│   │           └── ecommerce
+│   │               ├── ECommerceApplication.java
+│   │               ├── ExampleDataConfig.java
+│   │               ├── billing
+│   │               │   └── payment
+│   │               │       ├── CollectPayment.java
+│   │               │       ├── FindPayments.java
+│   │               │       ├── Payment.java
+│   │               │       ├── PaymentCollected.java
+│   │               │       ├── PaymentId.java
+│   │               │       ├── Payments.java
+│   │               │       ├── ReferenceId.java
+│   │               │       ├── jdbc
+│   │               │       │   ├── CollectPaymentJdbc.java
+│   │               │       │   ├── FindPaymentsJdbc.java
+│   │               │       │   ├── PaymentJdbc.java
+│   │               │       │   ├── PaymentJdbcConfig.java
+│   │               │       │   └── PaymentsJdbc.java
+│   │               │       ├── listeners
+│   │               │       │   └── OrderPlacedListener.java
+│   │               │       └── rest
+│   │               │           └── PaymentController.java
+│   │               ├── common
+│   │               │   ├── events
+│   │               │   │   ├── DomainEvent.java
+│   │               │   │   └── EventPublisher.java
+│   │               │   └── primitives
+│   │               │       ├── Money.java
+│   │               │       └── Quantity.java
+│   │               ├── portal
+│   │               │   ├── PlaceOrderFromCart.java
+│   │               │   ├── PortalConfig.java
+│   │               │   ├── PrepareOrderDelivery.java
+│   │               │   └── web
+│   │               │       ├── CartController.java
+│   │               │       ├── CartIdFromCookies.java
+│   │               │       ├── CatalogController.java
+│   │               │       ├── OrderController.java
+│   │               │       └── PortalWebConfig.java
+│   │               ├── sales
+│   │               │   ├── cart
+│   │               │   │   ├── Cart.java
+│   │               │   │   ├── CartId.java
+│   │               │   │   ├── ListCartItems.java
+│   │               │   │   ├── RemoveCartItem.java
+│   │               │   │   ├── RetrieveCart.java
+│   │               │   │   ├── item
+│   │               │   │   │   ├── CartItem.java
+│   │               │   │   │   ├── ProductId.java
+│   │               │   │   │   └── Title.java
+│   │               │   │   └── jdbc
+│   │               │   │       ├── CartJdbc.java
+│   │               │   │       ├── CartJdbcConfig.java
+│   │               │   │       └── RetrieveCartJdbc.java
+│   │               │   ├── catalog
+│   │               │   │   ├── FindCategories.java
+│   │               │   │   ├── FindProducts.java
+│   │               │   │   ├── FindProductsFromCategory.java
+│   │               │   │   ├── category
+│   │               │   │   │   ├── Categories.java
+│   │               │   │   │   ├── Category.java
+│   │               │   │   │   ├── CategoryId.java
+│   │               │   │   │   ├── Title.java
+│   │               │   │   │   └── Uri.java
+│   │               │   │   ├── jdbc
+│   │               │   │   │   ├── CatalogJdbcConfig.java
+│   │               │   │   │   ├── CategoriesJdbc.java
+│   │               │   │   │   ├── CategoryJdbc.java
+│   │               │   │   │   ├── FindCategoriesJdbc.java
+│   │               │   │   │   ├── FindProductsFromCategoryJdbc.java
+│   │               │   │   │   ├── FindProductsJdbc.java
+│   │               │   │   │   ├── ProductJdbc.java
+│   │               │   │   │   ├── ProductsJdbc.java
+│   │               │   │   │   ├── UnknownCategory.java
+│   │               │   │   │   └── UnknownProduct.java
+│   │               │   │   └── product
+│   │               │   │       ├── Description.java
+│   │               │   │       ├── Product.java
+│   │               │   │       ├── ProductId.java
+│   │               │   │       ├── Products.java
+│   │               │   │       └── Title.java
+│   │               │   └── order
+│   │               │       ├── FindOrders.java
+│   │               │       ├── Order.java
+│   │               │       ├── OrderId.java
+│   │               │       ├── OrderPlaced.java
+│   │               │       ├── PlaceOrder.java
+│   │               │       ├── PlaceableOrder.java
+│   │               │       ├── item
+│   │               │       │   ├── OrderItem.java
+│   │               │       │   └── ProductId.java
+│   │               │       └── jdbc
+│   │               │           ├── FindOrdersJdbc.java
+│   │               │           ├── OrderJdbc.java
+│   │               │           ├── OrderJdbcConfig.java
+│   │               │           ├── PlaceOrderJdbc.java
+│   │               │           └── UnknownOrder.java
+│   │               ├── shipping
+│   │               │   ├── delivery
+│   │               │   │   ├── Address.java
+│   │               │   │   ├── Delivery.java
+│   │               │   │   ├── DeliveryId.java
+│   │               │   │   ├── DeliveryInfo.java
+│   │               │   │   ├── DeliveryInfos.java
+│   │               │   │   ├── DeliveryPrepared.java
+│   │               │   │   ├── DispatchDelivery.java
+│   │               │   │   ├── FindDeliveries.java
+│   │               │   │   ├── OrderId.java
+│   │               │   │   ├── Person.java
+│   │               │   │   ├── Place.java
+│   │               │   │   ├── PrepareDelivery.java
+│   │               │   │   ├── jdbc
+│   │               │   │   │   ├── DeliveryInfosJdbc.java
+│   │               │   │   │   ├── DeliveryJdbc.java
+│   │               │   │   │   ├── DeliveryJdbcConfig.java
+│   │               │   │   │   ├── DispatchDeliveryJdbc.java
+│   │               │   │   │   ├── FindDeliveriesJdbc.java
+│   │               │   │   │   ├── PrepareDeliveryJdbc.java
+│   │               │   │   │   └── UnknownDelivery.java
+│   │               │   │   ├── listeners
+│   │               │   │   │   └── DeliveryDispatchedListener.java
+│   │               │   │   └── rest
+│   │               │   │       └── DeliveryController.java
+│   │               │   └── dispatching
+│   │               │       ├── DeliveryDispatched.java
+│   │               │       ├── Dispatching.java
+│   │               │       ├── DispatchingSaga.java
+│   │               │       ├── OrderId.java
+│   │               │       ├── jdbc
+│   │               │       │   ├── DispatchingJdbc.java
+│   │               │       │   ├── DispatchingJdbcConfig.java
+│   │               │       │   └── DispatchingSagaJdbc.java
+│   │               │       └── listeners
+│   │               │           └── DispatchingListeners.java
+│   │               └── warehouse
+│   │                   ├── Amount.java
+│   │                   ├── FetchGoods.java
+│   │                   ├── GoodsFetched.java
+│   │                   ├── GoodsMissed.java
+│   │                   ├── InStock.java
+│   │                   ├── OrderId.java
+│   │                   ├── ProductId.java
+│   │                   ├── RemoveFetchedGoods.java
+│   │                   ├── ToFetch.java
+│   │                   ├── Warehouse.java
+│   │                   ├── jdbc
+│   │                   │   ├── GoodsFetchingJdbc.java
+│   │                   │   ├── WarehouseJdbc.java
+│   │                   │   └── WarehouseJdbcConfig.java
+│   │                   ├── listeners
+│   │                   │   ├── DeliveryDispatchedListener.java
+│   │                   │   └── OrderPlacedListener.java
+│   │                   └── rest
+│   │                       └── WarehouseController.java
+│   └── resources
+│       ├── example-data.sql
+│       ├── messages.properties
+│       ├── schema.sql
+│       ├── static
+│       │   └── layout.css
+│       └── templates
+│           ├── cart.html
+│           ├── catalog.html
+│           ├── layout
+│           │   └── default.html
+│           ├── order-error.html
+│           ├── order-success.html
+│           └── order.html
+└── test
+    ├── java
+    │   └── com
+    │       └── ttulka
+    │           └── ecommerce
+    │               ├── CleanCodeArchTest.java
+    │               ├── CleanModulesArchTest.java
+    │               ├── OrderWorkFlowTest.java
+    │               ├── billing
+    │               │   └── payment
+    │               │       ├── PaymentIdTest.java
+    │               │       ├── ReferenceIdTest.java
+    │               │       ├── jdbc
+    │               │       │   ├── CollectPaymentTest.java
+    │               │       │   ├── FindPaymentsTest.java
+    │               │       │   ├── PaymentTest.java
+    │               │       │   └── PaymentsTest.java
+    │               │       ├── listeners
+    │               │       │   └── PaymentListenersTest.java
+    │               │       └── rest
+    │               │           └── PaymentControllerTest.java
+    │               ├── common
+    │               │   └── primitives
+    │               │       ├── MoneyTest.java
+    │               │       └── QuantityTest.java
+    │               ├── portal
+    │               │   ├── PlaceOrderFromCartTest.java
+    │               │   └── web
+    │               │       ├── CartControllerTest.java
+    │               │       ├── CatalogControllerTest.java
+    │               │       ├── OrderControllerTest.java
+    │               │       └── WebLayoutAdviceTest.java
+    │               ├── sales
+    │               │   ├── cart
+    │               │   │   ├── item
+    │               │   │   │   ├── ProductIdTest.java
+    │               │   │   │   └── TitleTest.java
+    │               │   │   └── jdbc
+    │               │   │       ├── CartTest.java
+    │               │   │       └── RetrieveCartTest.java
+    │               │   ├── catalog
+    │               │   │   ├── category
+    │               │   │   │   ├── CategoryIdTest.java
+    │               │   │   │   ├── TitleTest.java
+    │               │   │   │   └── UriTest.java
+    │               │   │   ├── jdbc
+    │               │   │   │   ├── CategorizeProductTest.java
+    │               │   │   │   ├── ChangeCategoryTest.java
+    │               │   │   │   ├── ChangeProductTest.java
+    │               │   │   │   ├── FindCategoriesTest.java
+    │               │   │   │   ├── FindProductsFromCategoryTest.java
+    │               │   │   │   ├── FindProductsTest.java
+    │               │   │   │   ├── ProductsTest.java
+    │               │   │   │   ├── PutProductForSaleTest.java
+    │               │   │   │   ├── UnknownCategoryTest.java
+    │               │   │   │   └── UnknownProductTest.java
+    │               │   │   └── product
+    │               │   │       ├── DescriptionTest.java
+    │               │   │       ├── ProductIdTest.java
+    │               │   │       └── TitleTest.java
+    │               │   └── order
+    │               │       ├── OrderIdTest.java
+    │               │       ├── OrderItemTest.java
+    │               │       ├── OrderPlacedTest.java
+    │               │       └── jdbc
+    │               │           ├── FindOrdersTest.java
+    │               │           ├── OrderTest.java
+    │               │           ├── PlaceOrderTest.java
+    │               │           └── UnknownOrderTest.java
+    │               ├── shipping
+    │               │   ├── delivery
+    │               │   │   ├── AddressTest.java
+    │               │   │   ├── DeliveryIdTest.java
+    │               │   │   ├── DeliveryInfoTest.java
+    │               │   │   ├── OrderIdTest.java
+    │               │   │   ├── PersonTest.java
+    │               │   │   ├── PlaceTest.java
+    │               │   │   ├── jdbc
+    │               │   │   │   ├── DeliveryTest.java
+    │               │   │   │   ├── DispatchDeliveryTest.java
+    │               │   │   │   ├── FindDeliveriesTest.java
+    │               │   │   │   ├── PrepareDeliveryTest.java
+    │               │   │   │   └── UnknownDeliveryTest.java
+    │               │   │   └── rest
+    │               │   │       └── DeliveryControllerTest.java
+    │               │   └── dispatching
+    │               │       ├── OrderIdTest.java
+    │               │       ├── jdbc
+    │               │       │   ├── DispatchingSagaTest.java
+    │               │       │   └── DispatchingTest.java
+    │               │       └── listeners
+    │               │           └── DispatchingListenersTest.java
+    │               └── warehouse
+    │                   ├── AmountTest.java
+    │                   ├── InStockTest.java
+    │                   ├── OrderIdTest.java
+    │                   ├── ProductIdTest.java
+    │                   ├── ToFetchTest.java
+    │                   ├── jdbc
+    │                   │   ├── FetchGoodsTest.java
+    │                   │   ├── RemoveFetchedGoodsTest.java
+    │                   │   └── WarehouseTest.java
+    │                   ├── listeners
+    │                   │   └── WarehouseListenersTest.java
+    │                   └── rest
+    │                       └── WarehouseControllerTest.java
+    └── resources
+        ├── test-data-billing-find-payments.sql
+        ├── test-data-order-workflow.sql
+        ├── test-data-sales-find-orders.sql
+        └── test-data-sales-find-products.sql
 
-# run 
-./mvnw spring-boot:run
-
-# open in browser http://localhost:8080
+79 directories, 205 files
 ```
 
 ## Table of Contents
